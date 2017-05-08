@@ -8,7 +8,7 @@ import { Routes, RouterModule } from '@angular/router';
 const candidateRoute: Routes = [
 
     { path: '', component: CandidateloginComponent },
-    { path: '/candidateconditions', component: CandidateconditionsComponent }
+    { path: '', component: CandidateconditionsComponent }
 
 ];
 
