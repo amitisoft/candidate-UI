@@ -1,0 +1,50 @@
+<nav class="navbar navbar-default" style="background-color: orange">
+<div class="col-xs-12">
+  <div class=" row">
+
+    <div class="col-xs-5">
+
+      <div class="navbar-header">
+        <a class="navbar-brand" ><img src="./assets/images/amiti.png" alt="amiti"
+                                      img="img-responsive"
+                                      style="height:30px;width:100px"/></a>
+      </div>
+
+    </div>
+
+    <div class="col-xs-7">
+
+      <div class="collapse navbar-collapse">
+
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown" appDropdown>
+            <button style="height: 45px; width: 120px" class="btn btn-warning"
+                    (click)="auth.login()" *ngIf="!auth.authenticated()">Log In <span class="glyphicon glyphicon-user"></span>
+            </button>
+            <button style="height: 45px; width: 120px" class="btn btn-default"
+                    (click)="auth.logout()" *ngIf="auth.authenticated()">Log Out <span class="glyphicon glyphicon-user"></span>
+            </button>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+
+
+
+
+</div>
+
+
+
+</nav>
+
+<main class="container">
+  <router-outlet></router-outlet>
+</main>
