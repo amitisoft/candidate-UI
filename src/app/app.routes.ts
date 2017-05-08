@@ -1,11 +1,13 @@
-import { ModuleWithProviders } from '@angular/core';
+﻿import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home.component';
+import { CandidateconditionsComponent } from './candidateconditions/candidateconditions.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: '**', redirectTo: '' }
+    { path: '', component: CandidateconditionsComponent },
+  { path: '**', redirectTo: '' },
+  
 ];
 
 export const appRoutingProviders: any[] = [

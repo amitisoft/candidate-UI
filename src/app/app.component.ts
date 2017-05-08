@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { Auth } from './auth.service';
+import { Routes } from '@angular/router';
 
 @Component({
   selector: 'cui-root',
@@ -10,6 +11,6 @@ import { Auth } from './auth.service';
 })
 
 export class AppComponent {
-  constructor(private auth: Auth) {}
+  constructor(private auth: Auth , private route: Routes) {}
 };
 

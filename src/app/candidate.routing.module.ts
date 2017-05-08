@@ -7,9 +7,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 const candidateRoute: Routes = [
 
-  {path: '', component: CandidateloginComponent , children: [
-    {  path: 'googleCondition', component: CandidateconditionsComponent }
-  ]}
+    { path: '', component: CandidateloginComponent },
+    { path: '/candidateconditions', component: CandidateconditionsComponent }
 
 ];
 
