@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
 import { myConfig } from './auth.config';
+import { Router, NavigationStart  } from '@angular/router';
+import 'rxjs/add/operator/filter';
 
 // Avoid name not found warnings
 declare var Auth0Lock: any;
@@ -18,10 +20,18 @@ export class Auth {
     }
   });
 
-  constructor() {
-    // Add callback for lock `authenticated` event
-    this.lock.on('authenticated', (authResult) => {
-      localStorage.setItem('id_token', authResult.idToken);
+  constructor(public router: Router) {
+    this
+      .router
+      .events
+      .filter(event => event instanceof NavigationStart)
+      .filter((event: NavigationStart) => (/access_token|id_token|error/).test(event.url))
+      .subscribe(() => {
+        this.lock.resumeAuth(window.location.hash, (error, authResult) => {
+          if (error) return console.log(error);
+          localStorage.setItem('id_token', authResult.idToken);
+          this.router.navigate(['/conditions']);
+        });
     });
   }
 
@@ -39,5 +49,6 @@ export class Auth {
   public logout() {
     // Remove token from localStorage
     localStorage.removeItem('id_token');
+    this.router.navigate(['']);
   };
 }
