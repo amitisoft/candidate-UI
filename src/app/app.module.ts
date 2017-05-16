@@ -15,6 +15,7 @@ import { Auth } from './auth.service';
 
 // import { AUTH_PROVIDERS } from 'angular2-jwt';
 import { routing, appRoutingProviders } from './app.routes';
+import { InactivetestlinkComponent } from './inactivetestlink/inactivetestlink.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { routing, appRoutingProviders } from './app.routes';
     CandidateloginComponent,
     CandidateconditionsComponent,
     CandidateexampageComponent,
-    CandidateheaderComponent, HomeComponent
+    CandidateheaderComponent, HomeComponent,  InactivetestlinkComponent
   ],
   imports: [
     BrowserModule,
