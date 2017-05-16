@@ -1,16 +1,16 @@
 ﻿<div class="row" *ngIf="auth.authenticated()">
 
-  <div class="col-xs-12">
-    <div class="row">
-      <div class="col-xs-3"></div>
+  <!-- <div class="col-xs-12">
+    <div class="row"> -->
+      <div class="col-lg-2 col-xs-12"></div>
 
-      <div class="col-xs-6">
+      <div class="col-lg-8 col-xs-12">
         <h4> TEST Guidelines - Please Read </h4>
         <hr>
         <h5><span class="glyphicon glyphicon-hand-right"></span> &nbsp;  Test is Based on <b>MULTIPLE CHOICE </b> Questions</h5>
         <h5><span class="glyphicon glyphicon-hand-right"></span> &nbsp;  All The Question Has To Be <b>"ANSWERED"</b> </h5>
         <h5>
-          <span class="glyphicon glyphicon-hand-right"></span> &nbsp;  Test Will Be TimeBoxed and Has <b>20 Questions</b> <br><br>
+          <span class="glyphicon glyphicon-hand-right"></span> &nbsp;  Test Will Be TimeBoxed and Has <b>30 Questions</b> <br><br>
           &nbsp; &nbsp; &nbsp; to be Completed With in <b>30 Minutes</b>
         </h5>
         <h5>
@@ -28,18 +28,19 @@
           &nbsp; &nbsp; &nbsp; the test
         </h5>
         <h5><span class="glyphicon glyphicon-hand-right"></span> &nbsp;  Test can be attempted only once</h5>
-        <h5><span class="glyphicon glyphicon-hand-right"></span> &nbsp;  HR will contact you once the test is complete</h5><br>
-        <button type="button" class="btn btn-default">Accept & Continue</button>
+        <h5><span class="glyphicon glyphicon-hand-right"></span> &nbsp;  HR will contact you once the test is complete</h5>
+         <h5><span class="glyphicon glyphicon-hand-right"></span> &nbsp;  After clicking Accept & Continue button your test will start automatically</h5>
+        <button type="button" class="btn btn-default" (click)="startExam()">Accept & Continue</button>
 
 
       </div>
 
-      <div class="col-xs-3"></div>
+      <div class="col-lg-2 col-xs-12"></div>
 
-    </div>
+    <!-- </div>
 
 
-  </div>
+  </div> -->
 
 
 </div>

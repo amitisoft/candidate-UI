@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Auth } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'cui-candidateconditions',
@@ -9,9 +10,13 @@ import { Auth } from '../auth.service';
 })
 export class CandidateconditionsComponent implements OnInit {
 
-    constructor(private auth: Auth) { }
+    constructor(private auth: Auth,private router:Router) { }
 
   ngOnInit() {
+  }
+
+  startExam(){
+  	this.router.navigate(['/startexam']);
   }
 
 }

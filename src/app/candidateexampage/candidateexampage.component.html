@@ -1,3 +1,26 @@
-<p>
-  candidateexampage works!
-</p>
+
+<div class="panel-group">
+    <div class="panel panel-primary">
+      <div class="panel-heading">{{firstQuestion[0]?.questionNumber}}) {{firstQuestion[0]?.question}}</div>
+	      <div class="panel-body">
+				<div class="row">
+				<div class="col-xs-6">
+					<label class="col-lg-6" *ngFor="let que of firstQuestion[0]?.options">
+						<input type="checkbox" name="answers" value="{{que}}" (change)="getSelectedBox($event.target.getAttribute('value'), $event.target.checked)" />
+						<span>{{que}}</span>
+					</label>  </div>
+				</div>
+		</div>
+    </div>
+    <br />
+    <div class="btn btn-primary" (click)="postAnswer(firstQuestion[0].id)">Next</div>
+</div>
+
+<!-- 
+<ul *ngFor="let data of totalQuestions; let i = index" style="cursor: pointer;">
+	<li *ngFor="let key of data">{{key.questionNumber}}</li>
+</ul>
+
+<ul *ngFor="let data of totalQuestions; let i = index" style="cursor: pointer;">
+	<li>{{data[0].questionNumber}}</li>
+</ul> -->
