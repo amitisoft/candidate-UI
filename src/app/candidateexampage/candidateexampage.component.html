@@ -1,20 +1,26 @@
-
-<div class="panel-group">
-    <div class="panel panel-primary">
-      <div class="panel-heading">{{firstQuestion[0]?.questionNumber}}) {{firstQuestion[0]?.question}}</div>
-	      <div class="panel-body">
-				<div class="row">
-				<div class="col-xs-6">
-					<label class="col-lg-6" *ngFor="let que of firstQuestion[0]?.options">
-						<input type="checkbox" name="answers" value="{{que}}" (change)="getSelectedBox($event.target.getAttribute('value'), $event.target.checked)" />
-						<span>{{que}}</span>
-					</label>  </div>
-				</div>
-		</div>
-    </div>
-    <br />
-    <div class="btn btn-primary" (click)="postAnswer(firstQuestion[0].id)">Next</div>
+<div class="exam_page" *ngIf="auth.authenticated()">
+	<div class="panel-group">
+	    <div class="panel panel-primary">
+	      <div class="panel-heading">{{currentQuestion[0]?.questionNumber}}) {{currentQuestion[0]?.question}}</div>
+		      <div class="panel-body">
+					<div class="row">
+					<div class="col-xs-6">
+						<label class="col-lg-6" *ngFor="let que of currentQuestion[0]?.options">
+							<input type="checkbox" name="answers" value="{{que}}" (change)="getSelectedBox($event.target.getAttribute('value'), $event.target.checked)" />
+							<span>{{que}}</span>
+						</label>  </div>
+					</div>
+			</div>
+	    </div>
+	    <br />
+	    <div class="btn btn-primary" (click)="postAnswer(currentQuestion[0].id)">Next</div>
+	</div>
+	<p>Time Remaining for the exam (Time is in Minutes) : {{examRemainingTime}}</p>
 </div>
+<div  *ngIf="!auth.authenticated()">
+	<h4>Please login to take the exam</h4>
+</div>
+
 
 <!-- 
 <ul *ngFor="let data of totalQuestions; let i = index" style="cursor: pointer;">
