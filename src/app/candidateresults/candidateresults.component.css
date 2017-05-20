@@ -1,0 +1,14 @@
+.exam_results{
+	margin-top: 230px;
+}
+
+
+.center_text, .exam_success_message{
+  text-align: center;
+  padding: 20px; 
+  background:#ccddcc;
+}
+
+.exam_success_message{
+	color: green;
+}

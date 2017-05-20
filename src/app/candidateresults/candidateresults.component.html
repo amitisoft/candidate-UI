@@ -1,0 +1,18 @@
+<!-- <p>
+  candidateresults works!
+</p> -->
+
+<div class="row exam_results" *ngIf="auth.authenticated()">
+	<div class="col-xs-2"></div>
+	<div class="col-xs-8">
+		<p class="exam_success_message">You have successfully completed the test</p>
+		<div class="center_text">
+			<p>Total Questions: 30<p>
+			<p>Total Marks: 20<p>
+		</div>
+	</div>
+	<div class="col-xs-2"></div>
+</div>
+<div class="row" *ngIf="!auth.authenticated()">
+	<p>Please login and take the exam to see your results</p>
+</div>

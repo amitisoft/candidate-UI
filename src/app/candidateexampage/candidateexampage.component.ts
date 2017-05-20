@@ -72,7 +72,7 @@ export class CandidateexampageComponent implements OnInit,OnDestroy {
       this.remainingSeconds = date.toISOString().substr(17, 2);
       if(this.router.url =='/startexam' && (!this.remainingMinutes && !this.remainingSeconds) ){
         this.ngOnDestroy();
-        this.router.navigate(['/']);
+        this.router.navigate(['/results']);
       }
     }
 

@@ -3,6 +3,7 @@ import { CandidateloginComponent } from './candidatelogin/candidatelogin.compone
 import {CandidateconditionsComponent } from './candidateconditions/candidateconditions.component';
 import {InactivetestlinkComponent } from './inactivetestlink/inactivetestlink.component';
 import {CandidateexampageComponent } from './candidateexampage/candidateexampage.component';
+import {CandidateresultsComponent } from './candidateresults/candidateresults.component';
 
 
 import { Routes, RouterModule } from '@angular/router';
@@ -14,6 +15,7 @@ const candidateRoute: Routes = [
     { path: 'conditions', component: CandidateconditionsComponent },
     { path: 'inactivetestlink', component: InactivetestlinkComponent },
     { path: 'startexam', component: CandidateexampageComponent },
+    { path: 'results', component: CandidateresultsComponent },	
 
 ];
 
