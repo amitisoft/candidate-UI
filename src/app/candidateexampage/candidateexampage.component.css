@@ -1,0 +1,11 @@
+.question_count h5{
+	background: #09ef05;
+	padding: 6px;
+	/*width: 20%;*/
+}
+
+.timer p {
+	text-align: center;
+	font-size: 16px;
+	margin:6px;
+}

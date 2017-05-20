@@ -1,4 +1,16 @@
-<div class="exam_page" *ngIf="auth.authenticated()">
+<div class="row" *ngIf="auth.authenticated()">
+	<div class=" question_count">
+		<h5 class="col-xs-2">
+			Question {{currentQuestion[0]?.questionNumber}} out of {{totalQuestions.length}}
+		</h5>
+	</div>
+	<div class="col-xs-4"></div>
+	<div class="timer">
+		<p class="col-xs-4">Remaining Time: <b>{{remainingMinutes}}</b> Minutes <b>{{remainingSeconds}}</b> Seconds</p>
+	</div>
+	<div class="col-xs-2"></div>
+</div>
+<div class="exam_page row" *ngIf="auth.authenticated()">
 	<div class="panel-group">
 	    <div class="panel panel-primary">
 	      <div class="panel-heading">{{currentQuestion[0]?.questionNumber}}) {{currentQuestion[0]?.question}}</div>
@@ -21,12 +33,9 @@
 	<h4>Please login to take the exam</h4>
 </div>
 
-
-<!-- 
-<ul *ngFor="let data of totalQuestions; let i = index" style="cursor: pointer;">
-	<li *ngFor="let key of data">{{key.questionNumber}}</li>
-</ul>
-
-<ul *ngFor="let data of totalQuestions; let i = index" style="cursor: pointer;">
-	<li>{{data[0].questionNumber}}</li>
-</ul> -->
+<div class="progress">
+  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax ="100" 
+  style="min-width: 2em;" [style.width]="(progress/100)*100 + '%'">
+   {{progress}}%
+  </div>
+ </div>

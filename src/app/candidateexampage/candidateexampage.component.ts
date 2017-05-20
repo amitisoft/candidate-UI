@@ -24,13 +24,19 @@ export class CandidateexampageComponent implements OnInit,OnDestroy {
   examEndTime:any;
   examRemainingTime:any;
   examEndTimeFromAPI:any;
+  remainingMinutes:any;
+  remainingSeconds:any;
+  progress:any;
 
-@HostListener('window:unload', ['$event'])
-unloadHandler(event) {
-  localStorage.setItem('currentQuestionId', JSON.stringify({id: this.currentQuestion[0].id - 1}));
-}
+//@HostListener('window:window:beforeunload', ['$event'])
+// public beforeunload(event) {
+//   localStorage.setItem('currentQuestionId', JSON.stringify({id: this.currentQuestion[0].id - 1}));
+//   console.log('askjcgajkc');
+// }
 
-  constructor(private _httpService: getQuestionService,private auth:Auth,private router:Router) { }
+  constructor(private _httpService: getQuestionService,private auth:Auth,private router:Router) {
+    this.getExamEndTime();
+  }
 
     ngOnInit(){
       this.getExamEndTime();
@@ -43,7 +49,7 @@ unloadHandler(event) {
         this.getQuestion(0);
       }
       let timer = Observable.timer(2000,1000);
-       this.sub = timer.subscribe(t => this.tickerFunc(t));
+      this.sub = timer.subscribe(t => this.tickerFunc(t));
     }
     tickerFunc(tick){
       var currentDateTime = new Date (),
@@ -57,12 +63,14 @@ unloadHandler(event) {
         finishedTime.setMinutes ( currentDateTime.getMinutes() + 30 );
         this.examEndTime = finishedTime;
       }
-      var seconds = (this.examEndTime.getTime() - currentTime.getTime()) / 1000;
-      this.ticks = tick;
+      var seconds = (this.examEndTime.getTime() - currentTime.getTime() )/ 1000;
+      this.ticks = 1;
       var date = new Date(null);
       date.setSeconds(seconds - this.ticks); // specify value for SECONDS here
       this.examRemainingTime = date.toISOString().substr(14, 5);
-      if(this.router.url =='/startexam' && (seconds <= 0) ){
+      this.remainingMinutes = date.toISOString().substr(14, 2);
+      this.remainingSeconds = date.toISOString().substr(17, 2);
+      if(this.router.url =='/startexam' && (!this.remainingMinutes && !this.remainingSeconds) ){
         this.ngOnDestroy();
         this.router.navigate(['/']);
       }
@@ -71,8 +79,10 @@ unloadHandler(event) {
     ngOnDestroy(){
       // unsubscribe here
       this.sub.unsubscribe();
+      localStorage.setItem('currentQuestionId', JSON.stringify({id: null}));
     }
     getQuestion(qsNumber){
+      this.allQuestions = [];
       this._httpService.getNextQuestion().subscribe(
             data => {
                   for (let key in data) {
@@ -82,6 +92,7 @@ unloadHandler(event) {
                   this.currentQuestion =  this.totalQuestions[qsNumber];
               }
         );
+      localStorage.setItem('currentQuestionId', JSON.stringify({id: qsNumber}));
     }
     getExamEndTime(){
        this._httpService.getTime().subscribe(
@@ -94,6 +105,11 @@ unloadHandler(event) {
         );
     }
     postAnswer(id){
+      if(id >= this.totalQuestions.length){
+        id = 0;
+      }else{
+        id = id;
+      }
       this.rightAnswer.push({
         id: id,
         answers: this.selectedAnswers
@@ -101,6 +117,13 @@ unloadHandler(event) {
       this._httpService.postThisAnswer(this.rightAnswer).subscribe(
         () => {this.getQuestion(id)}
       );
+      
+      if(id == 0 ){
+        var progressBar:number =  this.totalQuestions.length;
+      }else{
+        var progressBar:number = id;
+      }
+      this.progress = (progressBar/this.totalQuestions.length)*100;
     }
     getSelectedBox(selectedAns, chkBoxStatus){
       if(chkBoxStatus===true){
