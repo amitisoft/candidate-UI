@@ -11,8 +11,7 @@
 
       <div class="col-xs-7">
         <div class="navbar-collapse">
-          <ul class="navbar-right user_navbar"> 
-          <!-- removed these classees [nav navbar-nav] b/s causing issues in responsive -->
+          <ul class="nav navbar-nav navbar-right user_navbar"> 
             <li class="user_name">
               <p *ngIf="auth.authenticated()">Welcome <b>{{userName}}!</b></p>
             </li>
