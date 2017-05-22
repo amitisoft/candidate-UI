@@ -1,3 +1,9 @@
 .user_name{
 	margin: 10px;
 }
+
+.user_navbar{
+	float: right !important;
+    margin-right: -15px;
+    list-style: none;
+}
