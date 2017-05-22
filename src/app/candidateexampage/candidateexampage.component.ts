@@ -90,6 +90,7 @@ export class CandidateexampageComponent implements OnInit,OnDestroy {
                   }
                   this.totalQuestions = this.allQuestions;
                   this.currentQuestion =  this.totalQuestions[qsNumber];
+                  this.progressBar(this.currentQuestion[0].id);
               }
         );
       localStorage.setItem('currentQuestionId', JSON.stringify({id: qsNumber}));
@@ -118,12 +119,12 @@ export class CandidateexampageComponent implements OnInit,OnDestroy {
         () => {this.getQuestion(id)}
       );
       
-      if(id == 0 ){
-        var progressBar:number =  this.totalQuestions.length;
-      }else{
-        var progressBar:number = id;
-      }
-      this.progress = (progressBar/this.totalQuestions.length)*100;
+      // if(id == 0 ){
+      //   var progressBar:number =  this.totalQuestions.length;
+      // }else{
+      //   var progressBar:number = id;
+      // }
+      // this.progress = (progressBar/this.totalQuestions.length)*100;
     }
     getSelectedBox(selectedAns, chkBoxStatus){
       if(chkBoxStatus===true){
@@ -137,5 +138,17 @@ export class CandidateexampageComponent implements OnInit,OnDestroy {
           console.log(this.selectedAnswers);
         }
       }
+    }
+    progressBar(id){
+      if( id == 0 ){
+        var progressBar:number =  this.totalQuestions.length;
+      }else{
+        var progressBar:number = (id-1);
+      }
+      this.progress = (progressBar/this.totalQuestions.length)*100;
+    }
+    submitTest(){
+      this.progress = 100;
+      this.router.navigate(['/results']);
     }
 }
