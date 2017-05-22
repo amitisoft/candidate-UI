@@ -12,6 +12,10 @@ import { Router } from '@angular/router';
 })
 
 export class AppComponent {
+  userName:string;
   constructor(private auth: Auth,private router:Router) {}
+  ngOnInit(){
+  	this.userName = JSON.parse(localStorage.getItem('profile')).nickname;
+  }
 };
 

@@ -33,6 +33,14 @@ export class Auth {
           this.router.navigate(['/conditions']);
         });
     });
+    this.lock.on("authenticated", (authResult:any) => {
+      this.lock.getProfile(authResult.idToken, function(error: any, profile: any){
+        if(error){
+          throw new Error(error);
+        }
+        localStorage.setItem('profile', JSON.stringify(profile));
+      });
+    });
   }
 
   public login() {

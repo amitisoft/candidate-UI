@@ -15,14 +15,16 @@
     <div class="col-xs-7">
 
       <div class="collapse navbar-collapse">
-
         <ul class="nav navbar-nav navbar-right">
+          <li class="user_name">
+            <p *ngIf="auth.authenticated()">Welcome <b>{{userName}}!</b></p>
+          </li>
           <li class="dropdown" appDropdown>
-          <div *ngIf="router.url != '/inactivetestlink'">
-            <button style="height: 45px; width: 120px" class="btn btn-warning"
-                    (click)="auth.login()" *ngIf="!auth.authenticated()">Log In <span class="glyphicon glyphicon-user"></span>
-            </button>
-          </div>
+            <div *ngIf="router.url != '/inactivetestlink'">
+              <button style="height: 45px; width: 120px" class="btn btn-warning"
+                      (click)="auth.login()" *ngIf="!auth.authenticated()">Log In <span class="glyphicon glyphicon-user"></span>
+              </button>
+            </div>
             <button style="height: 45px; width: 120px" class="btn btn-default"
                     (click)="auth.logout()" *ngIf="auth.authenticated()">Log Out <span class="glyphicon glyphicon-user"></span>
             </button>
