@@ -26,8 +26,12 @@
 			</div>
 	    </div>
 	    <br />
-	    <div class="btn btn-primary" *ngIf="currentQuestion[0]?.id != totalQuestions.length " (click)="postAnswer(currentQuestion[0].id)">Next</div>
-	    <div class="btn btn-primary" *ngIf="currentQuestion[0]?.id == totalQuestions.length " (click)="submitTest()">SUBMIT</div>
+	     <button  class="btn btn-primary" [disabled]="!userSelectedAnswer" *ngIf="currentQuestion[0]?.id != totalQuestions.length " (click)="postAnswer(currentQuestion[0].id)">
+	     	NEXT
+	     </button>
+	     <button  class="btn btn-primary" [disabled]="!userSelectedAnswer" *ngIf="currentQuestion[0]?.id == totalQuestions.length " (click)="submitTest()">
+	     	SUBMIT
+	     </button>
 	    <div class="progress">
 	  		<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax ="100" style="min-width: 2em;" 
 	  		[style.width]="(progress/100)*100 + '%'">

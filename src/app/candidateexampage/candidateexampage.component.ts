@@ -27,6 +27,7 @@ export class CandidateexampageComponent implements OnInit,OnDestroy {
   remainingMinutes:any;
   remainingSeconds:any;
   progress:any;
+  userSelectedAnswer:boolean = false;
 
 //@HostListener('window:window:beforeunload', ['$event'])
 // public beforeunload(event) {
@@ -91,6 +92,8 @@ export class CandidateexampageComponent implements OnInit,OnDestroy {
                   this.totalQuestions = this.allQuestions;
                   this.currentQuestion =  this.totalQuestions[qsNumber];
                   this.progressBar(this.currentQuestion[0].id);
+                  this.selectedAnswers = [];
+                  this.userSelectedAnswer =  false;
               }
         );
       localStorage.setItem('currentQuestionId', JSON.stringify({id: qsNumber}));
@@ -106,6 +109,10 @@ export class CandidateexampageComponent implements OnInit,OnDestroy {
         );
     }
     postAnswer(id){
+      if(this.selectedAnswers.length <=0){
+        alert('Please select at least one answer');
+        return false;
+      }
       if(id >= this.totalQuestions.length){
         id = 0;
       }else{
@@ -137,6 +144,11 @@ export class CandidateexampageComponent implements OnInit,OnDestroy {
           this.selectedAnswers.splice(selectedAnsIndex, 1);
           console.log(this.selectedAnswers);
         }
+      }
+      if(this.selectedAnswers.length>0){
+        this.userSelectedAnswer =  true;
+      }else{
+        this.userSelectedAnswer =  false;
       }
     }
     progressBar(id){
