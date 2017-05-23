@@ -15,7 +15,9 @@ export class AppComponent {
   userName:string;
   constructor(private auth: Auth,private router:Router) {}
   ngOnInit(){
-  	this.userName = JSON.parse(localStorage.getItem('profile')).nickname;
+    if( JSON.parse(localStorage.getItem('profile')) ){
+      this.userName = JSON.parse(localStorage.getItem('profile')).nickname;
+    }
   }
 };
 

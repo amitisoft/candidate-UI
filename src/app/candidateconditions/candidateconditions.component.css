@@ -1,0 +1,17 @@
+.conditions h2{
+	font-size: 24px;
+	font-weight: 600;
+    margin: 58px 0 24px;
+}
+
+.conditions button{
+    margin: 58px 0 24px;
+}
+
+.conditions p{
+	font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    line-height: 30px;
+    font-weight: 400;
+    text-align: justify;
+}
