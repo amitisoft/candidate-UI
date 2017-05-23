@@ -1,24 +1,23 @@
 <div class="row" *ngIf="auth.authenticated()">
-	<div class=" question_count">
-		<h5 class="col-xs-2">
+	<div class="col-sm-3 col-xs-6 question_count">
+		<h5 class="">
 			Question {{currentQuestion[0]?.questionNumber}} out of {{totalQuestions.length}}
 		</h5>
 	</div>
-	<div class="col-xs-4"></div>
-	<div class="timer">
-		<p class="col-xs-4">Remaining Time: <b>{{remainingMinutes}}</b> Minutes <b>{{remainingSeconds}}</b> Seconds</p>
+	<div class="col-sm-5 hidden-xs"></div>
+	<div class="timer col-sm-4 col-xs-6">
+		<p class="">Remaining Time: <b>{{remainingMinutes}}</b> Minutes <b>{{remainingSeconds}}</b> Seconds</p>
 	</div>
-	<div class="col-xs-2"></div>
 </div>
 <div class="exam_page row" *ngIf="auth.authenticated()">
-	<div class="panel-group">
+	<div class="panel-group col-xs-12">
 	    <div class="panel panel-primary">
 	      	<div class="panel-heading">{{currentQuestion[0]?.questionNumber}}) {{currentQuestion[0]?.question}}
 	      	</div>
 	      	<div class="panel-body">
 				<div class="row">
-					<div class="col-xs-6">
-						<label class="col-lg-6" *ngFor="let que of currentQuestion[0]?.options">
+					<div class="col-xs-12">
+						<label class="col-sm-6 col-xs-12" *ngFor="let que of currentQuestion[0]?.options">
 							<input type="checkbox" name="answers" value="{{que}}" (change)="getSelectedBox($event.target.getAttribute('value'), $event.target.checked)" />
 							<span>{{que}}</span>
 						</label>  
@@ -29,16 +28,15 @@
 	    <br />
 	    <div class="btn btn-primary" *ngIf="currentQuestion[0]?.id != totalQuestions.length " (click)="postAnswer(currentQuestion[0].id)">Next</div>
 	    <div class="btn btn-primary" *ngIf="currentQuestion[0]?.id == totalQuestions.length " (click)="submitTest()">SUBMIT</div>
+	    <div class="progress">
+	  		<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax ="100" style="min-width: 2em;" 
+	  		[style.width]="(progress/100)*100 + '%'">
+	   			{{progress}}%
+	  		</div>
+		</div>
 	</div>
-	<p>Time Remaining for the exam (Time is in Minutes) : {{examRemainingTime}}</p>
+	<!-- <p>Time Remaining for the exam (Time is in Minutes) : {{examRemainingTime}}</p> -->
 </div>
 <div  *ngIf="!auth.authenticated()">
 	<h4>Please login to take the exam</h4>
 </div>
-
-<div class="progress">
-  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax ="100" 
-  style="min-width: 2em;" [style.width]="(progress/100)*100 + '%'">
-   {{progress}}%
-  </div>
- </div>

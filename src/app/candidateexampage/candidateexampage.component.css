@@ -9,3 +9,13 @@
 	font-size: 16px;
 	margin:6px;
 }
+
+.progress{
+	margin-top:2%;
+}
+
+@media only screen and (max-width: 500px) {
+    .question_count h5,.timer p {
+        font-size: 12px;
+    }
+}
