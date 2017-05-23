@@ -3,6 +3,7 @@ import { tokenNotExpired } from 'angular2-jwt';
 import { myConfig } from './auth.config';
 import { Router, NavigationStart  } from '@angular/router';
 import 'rxjs/add/operator/filter';
+import {GetCandidateTestStatusService} from './getcandidateteststatus.service';
 
 // Avoid name not found warnings
 declare var Auth0Lock: any;
@@ -21,9 +22,21 @@ export class Auth {
   });
 
   profile:any;
+  userExamStatus:any;
   onProfileUpdated: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(public router: Router) {
+  constructor(public router: Router,private getCandidateTestStatusService:GetCandidateTestStatusService) {
+      this.getCandidateTestStatusService.getUserExamStatus().subscribe(
+        data => {
+          console.log(data);
+          debugger;
+          this.userExamStatus = data.testStatus;
+            // for (let key in data) {
+            //     this.userExamStatus = data[key][0].testStatus;
+            //     break;
+            // }
+        }
+      );
     this.lock.on("authenticated", (authResult: any) => {
       this.lock.getProfile(authResult.idToken, (error: any, profile: any) => {
         if (error) {
@@ -32,7 +45,15 @@ export class Auth {
         localStorage.setItem('id_token', authResult.idToken);
         localStorage.setItem('profile', JSON.stringify(profile)); // We will wrap the profile into a JSON object as In local Storage you can only store strings
         this.onProfileUpdated.emit(profile);
-        this.router.navigate(['/conditions']);
+        debugger;
+        if(this.userExamStatus == 'NotTaken'){
+          this.router.navigate(['/inactivetestlink']);
+        }else if(this.userExamStatus == 'progress'){
+          this.router.navigate(['/conditions']);
+        }else{
+          this.logout();
+          alert('Internal error.Please contact HR');
+        }
       });
     });
   }
@@ -53,5 +74,6 @@ export class Auth {
     localStorage.removeItem('id_token');
     localStorage.removeItem('profile');
     this.router.navigate(['']);
+    this.userExamStatus = '';
   };
 }

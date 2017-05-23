@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import {getQuestionService} from '../getquestion.service';
+import {CandidateExampageService} from './candidateexampage.service';
 import { Observable, Subscription } from 'rxjs/Rx';
 import { Auth } from '../auth.service';
 import { Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   selector: 'cui-candidateexampage',
   templateUrl: './candidateexampage.component.html',
   styleUrls: ['./candidateexampage.component.css'],
-  providers: [getQuestionService]
+  providers: [CandidateExampageService]
 })
 export class CandidateexampageComponent implements OnInit,OnDestroy {
   ticks = 0;
@@ -35,7 +35,7 @@ export class CandidateexampageComponent implements OnInit,OnDestroy {
 //   console.log('askjcgajkc');
 // }
 
-  constructor(private _httpService: getQuestionService,private auth:Auth,private router:Router) {
+  constructor(private _httpService: CandidateExampageService,private auth:Auth,private router:Router) {
     this.getExamEndTime();
   }
 

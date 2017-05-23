@@ -1,17 +1,17 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Auth } from '../auth.service';
 import { Router } from '@angular/router';
-import {getQuestionService} from '../getquestion.service';
+import {CandidateConditionsService} from './candidateconditions.service';
 
 @Component({
   selector: 'cui-candidateconditions',
   templateUrl: './candidateconditions.component.html',
   styleUrls: ['./candidateconditions.component.css'],
-  providers: [Auth,getQuestionService]
+  providers: [Auth,CandidateConditionsService]
 })
 export class CandidateconditionsComponent implements OnInit {
   timeObject:any;
-  constructor(private auth: Auth,private router:Router,private getQuestion:getQuestionService) { }
+  constructor(private auth: Auth,private router:Router,private candidateConditionsService:CandidateConditionsService) { }
 
   ngOnInit() {
   }
@@ -25,7 +25,7 @@ export class CandidateconditionsComponent implements OnInit {
       examStartingTime: currentDateTime,
       examFinishingTime: finishedTime
     };
-    this.getQuestion.postTime(this.timeObject).subscribe();
+    this.candidateConditionsService.postTime(this.timeObject).subscribe();
   }
 
 }

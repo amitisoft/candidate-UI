@@ -1,6 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { Auth } from './auth.service';
 import { Router } from '@angular/router';
+import {GetCandidateTestStatusService} from './getcandidateteststatus.service';
 
 
 @Component({
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './app.template.html',
   // templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [Auth]
+  providers: [Auth,GetCandidateTestStatusService]
 })
 
 export class AppComponent {

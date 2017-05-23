@@ -17,6 +17,7 @@ import { Auth } from './auth.service';
 import { routing, appRoutingProviders } from './app.routes';
 import { InactivetestlinkComponent } from './inactivetestlink/inactivetestlink.component';
 import { CandidateresultsComponent } from './candidateresults/candidateresults.component';
+import { GetCandidateTestStatusService } from './getcandidateteststatus.service';
 
 @NgModule({
   declarations: [
