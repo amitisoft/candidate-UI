@@ -9,7 +9,7 @@ export class GetCandidateTestStatusService{
 	userExamStatus:any;
 	userToken:any;
 	getUserExamStatus(){
-		this.userToken = 'eyJib29raW5nSWQiOiJiMSIsInRva2VuSWQiOiIyMCIsImVtYWlsIjoiaHR0cHM6Ly93d3cuYW1pdGkuZXhhbSJ9';
+		this.userToken = 'eyJib29raW5nSWQiOiJiMSIsInRva2VuSWQiOiIxIiwiZW1haWwiOiJodHRwczovL3d3dy5hbWl0aS5leGFtIn0=';
 		return this.userExamStatus = this._http.get('https://uoxd8c9q5m.execute-api.us-east-1.amazonaws.com/dev/api/testLinkInfo/'+this.userToken).map(res => res.json());
 	}
 }
