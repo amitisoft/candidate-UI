@@ -7,8 +7,19 @@
   text-align: center;
   padding: 20px; 
   background:#ccddcc;
+  border: 3px solid #985e16;
 }
 
 .exam_success_message{
 	color: green;
+	border: none;
+}
+.total_questions {
+    color: #337ab7;
+}
+.total_marks {
+    color: red;
+}
+.final_result {
+    color: green;
 }
