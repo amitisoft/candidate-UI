@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable,EventEmitter  } from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
 import { myConfig } from './auth.config';
 import { Router, NavigationStart  } from '@angular/router';
@@ -20,25 +20,19 @@ export class Auth {
     }
   });
 
+  profile:any;
+  onProfileUpdated: EventEmitter<any> = new EventEmitter<any>();
+
   constructor(public router: Router) {
-    this
-      .router
-      .events
-      .filter(event => event instanceof NavigationStart)
-      .filter((event: NavigationStart) => (/access_token|id_token|error/).test(event.url))
-      .subscribe(() => {
-        this.lock.resumeAuth(window.location.hash, (error, authResult) => {
-          if (error) return console.log(error);
-          localStorage.setItem('id_token', authResult.idToken);
-          this.router.navigate(['/conditions']);
-        });
-    });
-    this.lock.on("authenticated", (authResult:any) => {
-      this.lock.getProfile(authResult.idToken, function(error: any, profile: any){
-        if(error){
+    this.lock.on("authenticated", (authResult: any) => {
+      this.lock.getProfile(authResult.idToken, (error: any, profile: any) => {
+        if (error) {
           throw new Error(error);
         }
-        localStorage.setItem('profile', JSON.stringify(profile));
+        localStorage.setItem('id_token', authResult.idToken);
+        localStorage.setItem('profile', JSON.stringify(profile)); // We will wrap the profile into a JSON object as In local Storage you can only store strings
+        this.onProfileUpdated.emit(profile);
+        this.router.navigate(['/conditions']);
       });
     });
   }
