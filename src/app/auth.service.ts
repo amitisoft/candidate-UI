@@ -29,8 +29,22 @@ export class Auth {
       this.getCandidateTestStatusService.getUserExamStatus().subscribe(
         data => {
           console.log(data);
-          debugger;
           this.userExamStatus = data.testStatus;
+          if(this.userExamStatus == 'progress'){
+            if(data.bookingId){
+              localStorage.setItem('bookingId', JSON.stringify(data.bookingId));
+            }
+            if(data.candidateId){
+              localStorage.setItem('candidateId', JSON.stringify(data.candidateId));
+            }
+            if(data.category){
+              localStorage.setItem('category', JSON.stringify(data.category));
+            }
+            if(data.paperType){
+              localStorage.setItem('paperType', JSON.stringify(data.paperType));
+            }
+          }
+          
             // for (let key in data) {
             //     this.userExamStatus = data[key][0].testStatus;
             //     break;
@@ -45,7 +59,6 @@ export class Auth {
         localStorage.setItem('id_token', authResult.idToken);
         localStorage.setItem('profile', JSON.stringify(profile)); // We will wrap the profile into a JSON object as In local Storage you can only store strings
         this.onProfileUpdated.emit(profile);
-        debugger;
         if(this.userExamStatus == 'NotTaken'){
           this.router.navigate(['/inactivetestlink']);
         }else if(this.userExamStatus == 'progress'){

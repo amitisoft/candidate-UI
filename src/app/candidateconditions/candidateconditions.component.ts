@@ -17,15 +17,20 @@ export class CandidateconditionsComponent implements OnInit {
   }
 
   startExam(){
-  	this.router.navigate(['/startexam']);
-    var currentDateTime = new Date (),
-    finishedTime = new Date ( currentDateTime );
-    finishedTime.setMinutes ( currentDateTime.getMinutes() + 30 );
+    var bookingId = JSON.parse(localStorage.getItem('bookingId'));
     this.timeObject = {
-      examStartingTime: currentDateTime,
-      examFinishingTime: finishedTime
+      bookingId: bookingId,
+      startingTime: new Date().getTime()
     };
-    this.candidateConditionsService.postTime(this.timeObject).subscribe();
+    this.candidateConditionsService.postTime(this.timeObject).subscribe(
+      (response) => {
+        if(response.status == 200){
+          this.router.navigate(['/startexam']);
+        }else{
+          alert('Some internal error occured.Please contact HR');
+          return false;
+        }
+      }
+    )
   }
-
 }
