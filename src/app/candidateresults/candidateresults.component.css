@@ -1,5 +1,5 @@
 .exam_results{
-	margin-top: 230px;
+	margin-top: 200px;
 }
 
 
@@ -13,6 +13,7 @@
 .exam_success_message{
 	color: green;
 	border: none;
+  font-weight: 600;
 }
 .total_questions {
     color: #337ab7;

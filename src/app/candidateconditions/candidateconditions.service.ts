@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 export class CandidateConditionsService{
 	constructor(private _http:Http) { }
 	postTime(timeObject){
-		return this._http.post('https://questiontable-630db.firebaseio.com/examTime.json',timeObject);
+		return this._http.post('https://uoxd8c9q5m.execute-api.us-east-1.amazonaws.com/dev/api/updateExamTimingSlot',timeObject);
 	}
 }
 
