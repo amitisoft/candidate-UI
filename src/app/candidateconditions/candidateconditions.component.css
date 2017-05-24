@@ -1,7 +1,7 @@
 .conditions h2{
-	font-size: 24px;
+	font-size: 16px;
 	font-weight: 600;
-    margin: 58px 0 24px;
+    margin: 38px 0 24px;
 }
 
 .conditions button{
@@ -14,4 +14,19 @@
     line-height: 30px;
     font-weight: 400;
     text-align: justify;
+}
+.conditions_headline{
+	font-weight: bold;
+	color: red;
+	margin: 58px 0 24px;
+}
+.all_instructions p {
+	margin:2%;
+}
+.accept_continue{
+	float: right;
+}
+
+.all_instructions u{
+	font-weight: bold;
 }
