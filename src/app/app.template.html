@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default" style="background-color: orange">
   <div class="col-xs-12">
     <div class=" row">
-      <div class="col-xs-5">
+      <div class="col-xs-5" [class.amiti_logo]="auth.authenticated()">
         <div class="navbar-header">
           <a class="navbar-brand" >
             <img src="./assets/images/amiti.png" alt="amiti" img="img-responsive" style="height:30px;width:100px"/>
@@ -12,8 +12,8 @@
       <div class="col-xs-7">
         <div class="navbar-collapse">
           <ul class="nav navbar-nav navbar-right user_navbar"> 
-            <li class="user_name">
-              <p *ngIf="auth.authenticated()">Welcome <b>{{ profile.nickname }}!</b></p>
+            <li class="user_name" *ngIf="auth.authenticated()">
+              <p>Welcome <b>{{ profile.nickname }}!</b></p>
             </li>
             <li class="dropdown" appDropdown>
               <div *ngIf="router.url != '/inactivetestlink'">

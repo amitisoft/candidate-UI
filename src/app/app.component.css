@@ -7,3 +7,9 @@
     margin-right: -15px;
     list-style: none;
 }
+
+@media (max-width: 768px){	
+	.amiti_logo{
+		margin-top: 20px;
+	}
+}
