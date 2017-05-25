@@ -30,3 +30,6 @@
 .all_instructions u{
 	font-weight: bold;
 }
+.all_instructions ul{
+	list-style-type: decimal;
+}
