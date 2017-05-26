@@ -13,11 +13,11 @@ export class Auth {
   // Configure Auth0
   lock = new Auth0Lock(myConfig.clientID, myConfig.domain, {
     theme: {
-      logo: 'test-icon.png',
+      logo: './assets/images/amiti_logo.png',
       primaryColor: '#b81b1c'
     },
     languageDictionary: {
-      title: 'My Company'
+      title: ''
     }
   });
 
@@ -28,7 +28,6 @@ export class Auth {
   constructor(public router: Router,private getCandidateTestStatusService:GetCandidateTestStatusService) {
       this.getCandidateTestStatusService.getUserExamStatus().subscribe(
         data => {
-          console.log(data);
           this.userExamStatus = data.testStatus;
           if(this.userExamStatus == 'progress'){
             if(data.bookingId){

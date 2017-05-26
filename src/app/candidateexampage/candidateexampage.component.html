@@ -1,7 +1,7 @@
 <div class="row" *ngIf="auth.authenticated()">
 	<div class="col-sm-3 col-xs-6 question_count">
 		<h5 class="">
-			Question {{currentQuestion[0]?.questionNumber}} out of {{totalQuestions.length}}
+			Question {{currentQuestion?.questionNo}} out of {{currentQuestion.total_No_of_Qsns_Per_QsnPaperId}}
 		</h5>
 	</div>
 	<div class="col-sm-5 hidden-xs"></div>
@@ -12,24 +12,36 @@
 <div class="exam_page row" *ngIf="auth.authenticated()">
 	<div class="panel-group col-xs-12">
 	    <div class="panel panel-primary">
-	      	<div class="panel-heading">{{currentQuestion[0]?.questionNumber}}) {{currentQuestion[0]?.question}}
+	      	<div class="panel-heading">{{currentQuestion?.questionNo}}) {{currentQuestion?.question}}
 	      	</div>
 	      	<div class="panel-body">
 				<div class="row">
 					<div class="col-xs-12">
-						<label class="col-sm-6 col-xs-12" *ngFor="let que of currentQuestion[0]?.options">
-							<input type="checkbox" name="answers" value="{{que}}" (change)="getSelectedBox($event.target.getAttribute('value'), $event.target.checked)" />
-							<span>{{que}}</span>
+						<label class="col-sm-6 col-xs-12">
+							<input type="checkbox" name="answers" value="{{currentQuestion.option1}}" (change)="getSelectedBox($event.target.getAttribute('value'), $event.target.checked)" />
+							<span>{{currentQuestion.option1}}</span>
+						</label> 
+						<label class="col-sm-6 col-xs-12">
+							<input type="checkbox" name="answers" value="{{currentQuestion.option2}}" (change)="getSelectedBox($event.target.getAttribute('value'), $event.target.checked)" />
+							<span>{{currentQuestion.option2}}</span>
+						</label> 
+						<label class="col-sm-6 col-xs-12">
+							<input type="checkbox" name="answers" value="{{currentQuestion.option3}}" (change)="getSelectedBox($event.target.getAttribute('value'), $event.target.checked)" />
+							<span>{{currentQuestion.option3}}</span>
+						</label> 
+						<label class="col-sm-6 col-xs-12">
+							<input type="checkbox" name="answers" value="{{currentQuestion.option4}}" (change)="getSelectedBox($event.target.getAttribute('value'), $event.target.checked)" />
+							<span>{{currentQuestion.option4}}</span>
 						</label>  
 					</div>
 				</div>
 			</div>
 	    </div>
 	    <br />
-	     <button  class="btn btn-primary" [disabled]="!userSelectedAnswer" *ngIf="currentQuestion[0]?.id != totalQuestions.length " (click)="postAnswer(currentQuestion[0].id)">
+	     <button  class="btn btn-primary" [disabled]="!userSelectedAnswer" *ngIf="currentQuestion?.questionNo != currentQuestion.total_No_of_Qsns_Per_QsnPaperId" (click)="postAnswer(currentQuestion.questionNo,currentQuestion.questionId,currentQuestion.correctAns)">
 	     	NEXT
 	     </button>
-	     <button  class="btn btn-primary" [disabled]="!userSelectedAnswer" *ngIf="currentQuestion[0]?.id == totalQuestions.length " (click)="submitTest()">
+	     <button  class="btn btn-primary" [disabled]="!userSelectedAnswer" *ngIf="currentQuestion?.questionNo == currentQuestion.total_No_of_Qsns_Per_QsnPaperId" (click)="submitTest(currentQuestion.questionNo,currentQuestion.questionId,currentQuestion.correctAns)">
 	     	SUBMIT
 	     </button>
 	    <div class="progress">

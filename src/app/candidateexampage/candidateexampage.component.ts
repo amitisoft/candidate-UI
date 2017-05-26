@@ -14,13 +14,8 @@ export class CandidateexampageComponent implements OnInit,OnDestroy {
   ticks = 0;
   private timer;
   private sub: Subscription;
-  getData:any;
   selectedAnswers:Array<any> = [];
-  rightAnswer = [];
-  allQuestions=[];
-  totalQuestions=[];
   currentQuestion =[];
-  result:any;
   examEndTime:any;
   examRemainingTime:any;
   examEndTimeFromAPI:any;
@@ -28,26 +23,26 @@ export class CandidateexampageComponent implements OnInit,OnDestroy {
   remainingSeconds:any;
   progress:any;
   userSelectedAnswer:boolean = false;
-
-//@HostListener('window:window:beforeunload', ['$event'])
-// public beforeunload(event) {
-//   localStorage.setItem('currentQuestionId', JSON.stringify({id: this.currentQuestion[0].id - 1}));
-//   console.log('askjcgajkc');
-// }
+  bookingId:string;
+  candidateId:string;
+  category:string;
+  paperType:string;
 
   constructor(private _httpService: CandidateExampageService,private auth:Auth,private router:Router) {
-    this.getExamEndTime();
+
   }
 
     ngOnInit(){
-      this.getExamEndTime();
+      this.bookingId =  JSON.parse(localStorage.getItem('bookingId'));
+      this.candidateId =  JSON.parse(localStorage.getItem('candidateId'));
+      this.category =  JSON.parse(localStorage.getItem('category'));
+      this.paperType =  JSON.parse(localStorage.getItem('paperType'));
       var currentQuestionObject = JSON.parse(localStorage.getItem('currentQuestionId'));
       var questionId = currentQuestionObject.id;
       if(questionId){
-        this.getQuestion(questionId);
-        localStorage.setItem('currentQuestionId', JSON.stringify({id: null }));
+        this.getAPIQuestion(questionId);
       }else{
-        this.getQuestion(0);
+        this.getAPIQuestion(0);
       }
       let timer = Observable.timer(2000,1000);
       this.sub = timer.subscribe(t => this.tickerFunc(t));
@@ -55,23 +50,15 @@ export class CandidateexampageComponent implements OnInit,OnDestroy {
     tickerFunc(tick){
       var currentDateTime = new Date (),
       currentTime = new Date ( currentDateTime );
-      this.examEndTime = new Date (this.examEndTimeFromAPI);
-      if(this.examEndTime !='Invalid Date'){
-        this.examEndTime = this.examEndTime;
-      }else{
-        var currentDateTime = new Date (),
-        finishedTime = new Date ( currentDateTime );
-        finishedTime.setMinutes ( currentDateTime.getMinutes() + 30 );
-        this.examEndTime = finishedTime;
-      }
-      var seconds = (this.examEndTime.getTime() - currentTime.getTime() )/ 1000;
+       this.examEndTime = this.examEndTimeFromAPI;
+      var seconds = (this.examEndTime - currentTime.getTime() )/ 1000;
       this.ticks = 1;
       var date = new Date(null);
       date.setSeconds(seconds - this.ticks); // specify value for SECONDS here
       this.examRemainingTime = date.toISOString().substr(14, 5);
       this.remainingMinutes = date.toISOString().substr(14, 2);
       this.remainingSeconds = date.toISOString().substr(17, 2);
-      if(this.router.url =='/startexam' && (!this.remainingMinutes && !this.remainingSeconds) ){
+      if(this.router.url =='/startexam' && ( this.examRemainingTime == 0)  ){
         this.ngOnDestroy();
         this.router.navigate(['/results']);
       }
@@ -81,68 +68,52 @@ export class CandidateexampageComponent implements OnInit,OnDestroy {
       // unsubscribe here
       this.sub.unsubscribe();
       localStorage.setItem('currentQuestionId', JSON.stringify({id: null}));
+      localStorage.setItem('bookingId', JSON.stringify(null));
+      localStorage.setItem('candidateId', JSON.stringify(null));
+      localStorage.setItem('category', JSON.stringify(null));
+      localStorage.setItem('paperType', JSON.stringify(null));
     }
-    getQuestion(qsNumber){
-      this.allQuestions = [];
-      this._httpService.getNextQuestion().subscribe(
+    getAPIQuestion(qsNumber){
+      this._httpService.getAPIQuestion(qsNumber,this.bookingId,this.candidateId,this.category,this.paperType).subscribe(
             data => {
-                  for (let key in data) {
-                      this.allQuestions.push(data[key]);
-                  }
-                  this.totalQuestions = this.allQuestions;
-                  this.currentQuestion =  this.totalQuestions[qsNumber];
-                  this.progressBar(this.currentQuestion[0].id);
-                  this.selectedAnswers = [];
-                  this.userSelectedAnswer =  false;
+                this.currentQuestion = data;
+                this.examEndTimeFromAPI = data.endTime;
+                this.progressBar(data.questionNo,data.total_No_of_Qsns_Per_QsnPaperId);
               }
         );
-      localStorage.setItem('currentQuestionId', JSON.stringify({id: qsNumber}));
+       localStorage.setItem('currentQuestionId', JSON.stringify({id: qsNumber}));
     }
-    getExamEndTime(){
-       this._httpService.getTime().subscribe(
-            data => {
-                  for (let key in data) {
-                       this.examEndTimeFromAPI = data[key].examFinishingTime;
-                       break;
-                  }
-              }
-        );
-    }
-    postAnswer(id){
+    postAnswer(id,questionId,correctAns){
       if(this.selectedAnswers.length <=0){
         alert('Please select at least one answer');
         return false;
       }
-      if(id >= this.totalQuestions.length){
-        id = 0;
-      }else{
-        id = id;
-      }
-      this.rightAnswer.push({
-        id: id,
-        answers: this.selectedAnswers
-      });
-      this._httpService.postThisAnswer(this.rightAnswer).subscribe(
-        () => {this.getQuestion(id)}
+      var submitAnswer = {
+        bookingId: this.bookingId,
+        questionId:questionId,
+        candidateId:this.candidateId,
+        candidateAns: this.selectedAnswers,
+        correctAns:correctAns
+      };
+      var nextQuestionId = id;
+      this._httpService.postThisAnswer(submitAnswer).subscribe(
+        (response) => {
+          if(response.status == 200){
+            this.getAPIQuestion(nextQuestionId);
+          }else{
+            alert('Some internal error occured.Please contact HR');
+            return false;
+          }
+        }
       );
-      
-      // if(id == 0 ){
-      //   var progressBar:number =  this.totalQuestions.length;
-      // }else{
-      //   var progressBar:number = id;
-      // }
-      // this.progress = (progressBar/this.totalQuestions.length)*100;
     }
     getSelectedBox(selectedAns, chkBoxStatus){
       if(chkBoxStatus===true){
-        console.log(selectedAns);
         this.selectedAnswers.push(selectedAns);
-        console.log(this.selectedAnswers);
       }else{
         var selectedAnsIndex = this.selectedAnswers.indexOf(selectedAns);
         if(selectedAnsIndex !== -1){
           this.selectedAnswers.splice(selectedAnsIndex, 1);
-          console.log(this.selectedAnswers);
         }
       }
       if(this.selectedAnswers.length>0){
@@ -151,16 +122,28 @@ export class CandidateexampageComponent implements OnInit,OnDestroy {
         this.userSelectedAnswer =  false;
       }
     }
-    progressBar(id){
-      if( id == 0 ){
-        var progressBar:number =  this.totalQuestions.length;
-      }else{
-        var progressBar:number = (id-1);
-      }
-      this.progress = (progressBar/this.totalQuestions.length)*100;
+    progressBar(id,totalQuestions){
+      var progressBar:number = (id-1);
+      this.progress = (progressBar/totalQuestions)*100;
     }
-    submitTest(){
-      this.progress = 100;
-      this.router.navigate(['/results']);
+    submitTest(id,questionId,correctAns){
+      var submitLastAnswer = {
+        bookingId: this.bookingId,
+        questionId:questionId,
+        candidateId:this.candidateId,
+        candidateAns: this.selectedAnswers,
+        correctAns:correctAns
+      };
+      this._httpService.postThisAnswer(submitLastAnswer).subscribe(
+        (response)=>{
+          if(response.status == 200){
+            this.progress = 100;
+            this.router.navigate(['/results']);
+          }else{
+            alert('Some internal error occured.Please contact HR');
+            return false;
+          }
+        }
+      );
     }
 }
