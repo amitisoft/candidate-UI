@@ -38,7 +38,9 @@ export class CandidateexampageComponent implements OnInit,OnDestroy {
       this.category =  JSON.parse(localStorage.getItem('category'));
       this.paperType =  JSON.parse(localStorage.getItem('paperType'));
       var currentQuestionObject = JSON.parse(localStorage.getItem('currentQuestionId'));
-      var questionId = currentQuestionObject.id;
+      if(currentQuestionObject){
+        var questionId = currentQuestionObject.id;
+      }
       if(questionId){
         this.getAPIQuestion(questionId);
       }else{
