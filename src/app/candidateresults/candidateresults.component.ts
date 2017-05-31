@@ -14,11 +14,13 @@ export class CandidateresultsComponent implements OnInit {
 
   ngOnInit() {
   	this.candidateId =  JSON.parse(localStorage.getItem('candidateId'));
-  	this.resultsService.getCandidateResults(this.candidateId).subscribe(
-  		(data) =>{
-  			console.log(data);
-  		}
-  	);
+  	// currently we are not displaying the score card
+
+  	// this.resultsService.getCandidateResults(this.candidateId).subscribe(
+  	// 	(data) =>{
+  	// 		console.log(data);
+  	// 	}
+  	// );
   }
 
 }

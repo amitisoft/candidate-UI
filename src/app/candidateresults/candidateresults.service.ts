@@ -9,7 +9,7 @@ export class CandidateResultsService{
 	results:any;
 
 	getCandidateResults(candidateId){
-		return this.results =  this._http.get('https://yufinedfhg.execute-api.us-east-1.amazonaws.com/dev/api/getAllQsnIds/BookingId/'+candidateId).map(res => res.json());
+		//return this.results =  this._http.get('https://yufinedfhg.execute-api.us-east-1.amazonaws.com/dev/api/getAllQsnIds/BookingId/'+candidateId).map(res => res.json());
 	}
 }
 
