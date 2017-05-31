@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 export class CandidateConditionsService{
 	constructor(private _http:Http) { }
 	postTime(timeObject){
-		return this._http.post('https://styj48fb45.execute-api.us-east-1.amazonaws.com/dev/api/updateExamTimingSlot',timeObject);
+		return this._http.post('https://yufinedfhg.execute-api.us-east-1.amazonaws.com/dev/api/updateExamTimingSlot',timeObject);
 	}
 }
 

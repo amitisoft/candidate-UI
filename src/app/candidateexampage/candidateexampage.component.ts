@@ -69,7 +69,7 @@ export class CandidateexampageComponent implements OnInit,OnDestroy {
       this.sub.unsubscribe();
       localStorage.setItem('currentQuestionId', JSON.stringify({id: null}));
       localStorage.setItem('bookingId', JSON.stringify(null));
-      localStorage.setItem('candidateId', JSON.stringify(null));
+      //localStorage.setItem('candidateId', JSON.stringify(null));
       localStorage.setItem('category', JSON.stringify(null));
       localStorage.setItem('paperType', JSON.stringify(null));
     }
