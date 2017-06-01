@@ -1,7 +1,7 @@
 <div class="row" *ngIf="auth.authenticated()">
 	<div class="col-sm-3 col-xs-6 question_count">
 		<h5 class="">
-			Question {{currentQuestion?.questionNo}} out of {{currentQuestion.total_No_of_Qsns_Per_QsnPaperId}}
+			Question {{currentQuestion?.questionNo}} out of {{currentQuestion.totalNoOfQsnsPerQsnPaperId}}
 		</h5>
 	</div>
 	<div class="col-sm-5 hidden-xs"></div>
@@ -38,10 +38,10 @@
 			</div>
 	    </div>
 	    <br />
-	     <button  class="btn btn-primary" [disabled]="!userSelectedAnswer" *ngIf="currentQuestion?.questionNo != currentQuestion.total_No_of_Qsns_Per_QsnPaperId" (click)="postAnswer(currentQuestion.questionNo,currentQuestion.questionId,currentQuestion.correctAns)">
+	     <button  class="btn btn-primary" [disabled]="!userSelectedAnswer" *ngIf="currentQuestion?.questionNo != currentQuestion.totalNoOfQsnsPerQsnPaperId" (click)="postAnswer(currentQuestion.questionNo,currentQuestion.questionId,currentQuestion.correctAns)">
 	     	NEXT
 	     </button>
-	     <button  class="btn btn-primary" [disabled]="!userSelectedAnswer" *ngIf="currentQuestion?.questionNo == currentQuestion.total_No_of_Qsns_Per_QsnPaperId" (click)="submitTest(currentQuestion.questionNo,currentQuestion.questionId,currentQuestion.correctAns)">
+	     <button  class="btn btn-primary" [disabled]="!userSelectedAnswer" *ngIf="currentQuestion?.questionNo == currentQuestion.totalNoOfQsnsPerQsnPaperId" (click)="submitTest(currentQuestion.questionNo,currentQuestion.questionId,currentQuestion.correctAns)">
 	     	SUBMIT
 	     </button>
 	    <div class="progress">

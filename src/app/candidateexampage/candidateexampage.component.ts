@@ -80,7 +80,7 @@ export class CandidateexampageComponent implements OnInit,OnDestroy {
             data => {
                 this.currentQuestion = data;
                 this.examEndTimeFromAPI = data.endTime;
-                this.progressBar(data.questionNo,data.total_No_of_Qsns_Per_QsnPaperId);
+                this.progressBar(data.questionNo,data.totalNoOfQsnsPerQsnPaperId);
               }
         );
        localStorage.setItem('currentQuestionId', JSON.stringify({id: qsNumber}));
